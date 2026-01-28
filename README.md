@@ -10,10 +10,8 @@ your `<leader>` key, so local and global mark behavior is left in place.
 Overall, the behavior is very similar to Harpoon or other similar plugins,
 however instead of having to predefine keys that can be assigned to your
 buffer, you can use any lower or upper case letter character, or numerical
-character `[a-zA-Z0-9]`. So how you choose to arrange your marks is up to you
-on the fly, whether it's pneumonic, in order on your home-row, etc. If you
-assign and already assigned buffer to a new key, the old assignment will be
-deleted.
+character `[a-zA-Z0-9]`. So how you choose to arrange your marks is up to you,
+on the fly, whether it's pneumonic, in order on your home-row, etc.
 
 Finding buffer-marks should work naturally with your picker of choice as long
 as it uses the default `vim.ui.select` function (Snacks, Telescope, Mini-Pick).
@@ -82,7 +80,30 @@ require('buffer-marks').setup({
     mark = "<leader>m",
     jump = "<leader>'",
     list = "<leader>fm",
-    clear = "<leader>mc",
+    delete = "<leader>m-",
+    clear = "<leader>m_",
   },
 })
 ```
+
+## Usage
+
+### Marking Buffers
+
+To mark a buffer press `<leader>m` (or your `mark` keymap) followed by a
+lower/upper case character or numerical character. If you assign an already
+assigned buffer to a new key, the old assignment will be deleted.
+
+### Jumping to Marked Buffers
+
+To jump to a marked buffer press `<leader>'` (or your `jump` keymap) followed
+by the key you assigned that buffer to. Alternatively you can press
+`<leader>fm` (or your `list` keymap) to open a list of all the currently marked
+buffers in your picker of choice.
+
+### Deleting and Clearing Buffers
+
+To delete a specific buffer press `<leader>m-` (or your `delete` keymap)
+followed by the key for the buffer mark you would like to delete. If not found
+an error message will be displayed. Clear all marked buffers with `<leader>m_`
+(or your `clear` keymap).
