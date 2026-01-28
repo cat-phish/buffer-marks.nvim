@@ -12,9 +12,6 @@ M.config = {
 	notify_on_mark = true,
 	notify_on_jump = true,
 
-	-- which-key hack
-	which_key = false, -- Set true to enable which-key a-zA-Z0-9 hint
-
 	-- keymaps (set false to disable default keymaps)
 	keymaps = {
 		mark = "<leader>m",
@@ -194,18 +191,9 @@ end
 
 -- setup which-key integration
 local function setup_which_key()
-	-- check which-key user setting
-	if not M.config.which_key then
-		return
-	end
-
 	-- check for which-key
 	local ok, wk = pcall(require, "which-key")
 	if not ok then
-		vim.notify(
-			"[Buffer Marks] which-key integration enabled but which-key.nvim is not installed",
-			vim.log.levels.WARN
-		)
 		return
 	end
 
