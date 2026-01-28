@@ -17,8 +17,8 @@ M.config = {
 		mark = "<leader>m",
 		jump = "<leader>'",
 		list = "<leader>fm",
-		clear = "<leader>mc",
-		delete = "<leader>md",
+		clear = "<leader>m<BS>",
+		delete = "<leader>m<Del>",
 	},
 }
 
