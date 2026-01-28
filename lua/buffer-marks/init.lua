@@ -12,6 +12,9 @@ M.config = {
 	notify_on_mark = true,
 	notify_on_jump = true,
 
+	-- which-key hack
+	which_key = false, -- Set true to enable which-key a-zA-Z0-9 hint
+
 	-- keymaps (set false to disable default keymaps)
 	keymaps = {
 		mark = "<leader>m",
@@ -189,6 +192,43 @@ function M.delete_mark()
 	end
 end
 
+-- setup which-key integration
+local function setup_which_key()
+	-- check which-key user setting
+	if not M.config.which_key then
+		return
+	end
+
+	-- check for which-key
+	local ok, wk = pcall(require, "which-key")
+	if not ok then
+		vim.notify(
+			"[Buffer Marks] which-key integration enabled but which-key.nvim is not installed",
+			vim.log.levels.WARN
+		)
+		return
+	end
+
+	-- register hint
+	if M.config.keymaps and M.config.keymaps.mark then
+		-- new API first (v3.x)
+		if wk.add then
+			wk.add({
+				{
+					M.config.keymaps.mark .. "a", -- Dummy mapping for the hint
+					desc = "[a-zA-Z0-9] to mark buffer",
+					mode = "n",
+				},
+			})
+		-- old API (v2.x)
+		elseif wk.register then
+			wk.register({
+				[M.config.keymaps.mark .. "a"] = "[a-zA-Z0-9] to mark buffer",
+			}, { mode = "n" })
+		end
+	end
+end
+
 -- setup function
 function M.setup(opts)
 	-- merge user config with defaults
@@ -212,6 +252,8 @@ function M.setup(opts)
 			vim.keymap.set("n", M.config.keymaps.clear, M.clear_marks, { desc = "Clear buffer marks" })
 		end
 	end
+
+	setup_which_key()
 
 	-- create user commands
 	vim.api.nvim_create_user_command("BufferMarkSet", M.mark_buffer, { desc = "Mark current buffer" })
