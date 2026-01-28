@@ -205,11 +205,11 @@ function M.setup(opts)
 		if M.config.keymaps.list then
 			vim.keymap.set("n", M.config.keymaps.list, M.list_marks, { desc = "List buffer marks" })
 		end
-		if M.config.keymaps.clear then
-			vim.keymap.set("n", M.config.keymaps.clear, M.clear_marks, { desc = "Clear buffer marks" })
+		if M.config.keymaps.delete then
+			vim.keymap.set("n", M.config.keymaps.delete, M.delete_mark, { desc = "Delete buffer mark" })
 		end
 		if M.config.keymaps.clear then
-			vim.keymap.set("n", M.config.keymaps.delete, M.delete_mark, { desc = "Delete buffer mark" })
+			vim.keymap.set("n", M.config.keymaps.clear, M.clear_marks, { desc = "Clear buffer marks" })
 		end
 	end
 
