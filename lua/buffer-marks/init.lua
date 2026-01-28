@@ -215,7 +215,7 @@ local function setup_which_key()
 		if wk.add then
 			wk.add({
 				{
-					M.config.keymaps.mark .. " ", -- dummy mapping for the hint
+					M.config.keymaps.mark .. "", -- dummy mapping for the hint
 					desc = "[a-z|A-Z|0-9] to mark buffer",
 					mode = "n",
 				},
