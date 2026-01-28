@@ -43,14 +43,33 @@ function M.mark_buffer()
 		local bufname = vim.api.nvim_buf_get_name(bufnr)
 
 		_G.buffer_marks = _G.buffer_marks or {}
+
+		-- check if already marked, delete old if so
+		local old_key = nil
+		for existing_key, mark in pairs(_G.buffer_marks) do
+			if mark.bufnr == bufnr or mark.bufname == bufname then
+				if existing_key ~= key then
+					old_key = existing_key
+					_G.buffer_marks[existing_key] = nil
+				end
+				break
+			end
+		end
+
+		-- add new mark
 		_G.buffer_marks[key] = {
 			bufnr = bufnr,
 			bufname = bufname,
 			timestamp = os.time(),
 		}
 
+		-- notify
 		if M.config.notify_on_mark then
-			notify(string.format("Marked '%s' as [%s]", vim.fn.fnamemodify(bufname, ":t"), key))
+			if old_key then
+				notify(string.format("Moved '%s' from [%s] to [%s]", vim.fn.fnamemodify(bufname, ":t"), old_key, key))
+			else
+				notify(string.format("Marked '%s' as [%s]", vim.fn.fnamemodify(bufname, ":t"), key))
+			end
 		end
 	end
 end
