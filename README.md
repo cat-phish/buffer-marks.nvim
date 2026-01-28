@@ -9,9 +9,11 @@ your `<leader>` key, so local and global mark behavior is left in place.
 
 Overall, the behavior is very similar to Harpoon or other similar plugins,
 however instead of having to predefine keys that can be assigned to your
-buffer, you can use any lower or upper case letter character `[a-zA-Z]`. So how
-you choose to arrange your marks is up to you on the fly, whether it's
-pneumonic, in order on your home-row, etc.
+buffer, you can use any lower or upper case letter character, or numerical
+character `[a-zA-Z0-9]`. So how you choose to arrange your marks is up to you
+on the fly, whether it's pneumonic, in order on your home-row, etc. If you
+assign and already assigned buffer to a new key, the old assignment will be
+deleted.
 
 ## Installation
 

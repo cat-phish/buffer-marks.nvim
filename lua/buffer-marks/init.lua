@@ -38,7 +38,7 @@ end
 -- mark buffer
 function M.mark_buffer()
 	local key = vim.fn.getcharstr()
-	if key and #key == 1 and key:match("[a-zA-Z]") then
+	if key and #key == 1 and key:match("[a-zA-Z0-9]") then
 		local bufnr = vim.api.nvim_get_current_buf()
 		local bufname = vim.api.nvim_buf_get_name(bufnr)
 
@@ -66,9 +66,12 @@ function M.mark_buffer()
 		-- notify
 		if M.config.notify_on_mark then
 			if old_key then
-				notify(string.format("Moved '%s' from [%s] to [%s]", vim.fn.fnamemodify(bufname, ":t"), old_key, key))
+				notify(
+					string.format("Moved '%s' from [%s] to [%s]", vim.fn.fnamemodify(bufname, ":t"), old_key, key),
+					"info"
+				)
 			else
-				notify(string.format("Marked '%s' as [%s]", vim.fn.fnamemodify(bufname, ":t"), key))
+				notify(string.format("Marked '%s' as [%s]", vim.fn.fnamemodify(bufname, ":t"), key), "info")
 			end
 		end
 	end
