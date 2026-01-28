@@ -18,6 +18,7 @@ M.config = {
 		jump = "<leader>'",
 		list = "<leader>fm",
 		clear = "<leader>mc",
+		delete = "<leader>md",
 	},
 }
 
@@ -166,6 +167,28 @@ function M.remove_mark(key)
 	end
 end
 
+-- delete mark (user)
+function M.delete_mark()
+	local key = vim.fn.getcharstr()
+	if key and #key == 1 and key:match("[a-zA-Z0-9]") then
+		_G.buffer_marks = _G.buffer_marks or {}
+
+		local mark = _G.buffer_marks[key]
+		if mark then
+			local filename = vim.fn.fnamemodify(mark.bufname, ":t")
+			_G.buffer_marks[key] = nil
+
+			if M.config.notify then
+				notify(string.format("Deleted mark [%s] for '%s'", key, filename), "info")
+			end
+		else
+			if M.config.notify then
+				notify(string.format("Mark [%s] not found", key), "warn")
+			end
+		end
+	end
+end
+
 -- setup function
 function M.setup(opts)
 	-- merge user config with defaults
@@ -185,6 +208,9 @@ function M.setup(opts)
 		if M.config.keymaps.clear then
 			vim.keymap.set("n", M.config.keymaps.clear, M.clear_marks, { desc = "Clear buffer marks" })
 		end
+		if M.config.keymaps.clear then
+			vim.keymap.set("n", M.config.keymaps.delete, M.delete_mark, { desc = "Delete buffer mark" })
+		end
 	end
 
 	-- create user commands
@@ -192,6 +218,7 @@ function M.setup(opts)
 	vim.api.nvim_create_user_command("BufferMarkJump", M.jump_to_mark, { desc = "Jump to marked buffer" })
 	vim.api.nvim_create_user_command("BufferMarkList", M.list_marks, { desc = "List all buffer marks" })
 	vim.api.nvim_create_user_command("BufferMarkClear", M.clear_marks, { desc = "Clear all buffer marks" })
+	vim.api.nvim_create_user_command("BufferMarkDelete", M.delete_mark, { desc = "Delete buffer mark" })
 end
 
 return M
