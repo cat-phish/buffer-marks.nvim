@@ -211,7 +211,7 @@ local function setup_which_key()
 		-- old API (v2.x)
 		elseif wk.register then
 			wk.register({
-				[M.config.keymaps.mark .. "a"] = "[a-z|A-Z|0-9] to mark buffer",
+				[M.config.keymaps.mark .. "a"] = "[a-z|A-Z|0-9] to mark buffer", -- haven't tested on 2.x, leaving as "a"
 			}, { mode = "n" })
 		end
 	end

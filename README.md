@@ -107,3 +107,17 @@ To delete a specific buffer press `<leader>m-` (or your `delete` keymap)
 followed by the key for the buffer mark you would like to delete. If not found
 an error message will be displayed. Clear all marked buffers with `<leader>m_`
 (or your `clear` keymap).
+
+## Suggested Configuration
+
+This section is purely opinionated, but I think that this plugin works best
+when there is as little friction as possible. The default config is set up as
+it is for two reasons. First, to mirror the workflow of marks as people are
+generally familiar with them, except with a leader key prepended. Second, so
+that the default config is unlikely to clash with too many existing keymaps
+users may already have set up.
+
+However, I highly recommend mapping `jump` to something like `<leader><space>`,
+`<leader>,`, or `<leader>.`. Basically, something that is quick and close
+together so that you're not jumping all over the keyboard every time you want
+to jump.
