@@ -15,17 +15,43 @@ on the fly, whether it's pneumonic, in order on your home-row, etc. If you
 assign and already assigned buffer to a new key, the old assignment will be
 deleted.
 
+Finding buffer-marks should work naturally with your picker of choice as long
+as it uses the default `vim.ui.select` function (Snacks, Telescope, Mini-Pick).
+Same goes for notifications, the default `vim.notify` is used.
+
 ## Installation
 
 ### With [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
+-- Minimal setup with defaults
+{
+  'cat-phish/buffer-marks.nvim',
+  event = 'VeryLazy',
+  opts = {},  -- Calls setup() with default config
+}
+
+-- Custom config
 {
   'cat-phish/buffer-marks.nvim',
   event = 'VeryLazy',
   opts = {
-    -- your configuration here (optional)
+    notify = false,
+    keymaps = {
+      mark = 'mm',
+    },
   },
+}
+
+-- Or manually call setup
+{
+  'cat-phish/buffer-marks.nvim',
+  event = 'VeryLazy',
+  config = function()
+    require('buffer-marks').setup({
+      notify = false,
+    })
+  end,
 }
 ```
 

@@ -97,7 +97,7 @@ function M.jump_to_mark()
 			vim.cmd('normal! g`"')
 
 			if M.config.notify_on_jump then
-				notify(string.format("Jumped to [%s]", key))
+				notify(string.format("Jumped to buffer mark [%s]", key))
 			end
 		else
 			notify(string.format("Buffer mark [%s] not found", key), "warn")
