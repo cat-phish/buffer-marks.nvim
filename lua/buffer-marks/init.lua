@@ -214,15 +214,18 @@ local function setup_which_key()
 		-- new API first (v3.x)
 		if wk.add then
 			wk.add({
-				{ M.config.keymaps.mark, group = "marks" },
-				{ M.config.keymaps.mark .. "…", desc = "[a-z|A-Z|0-9] to mark buffer" },
+				{
+					M.config.keymaps.mark,
+					desc = "[a-zA-Z0-9] to mark buffer",
+					mode = "n",
+				},
 			})
 		-- old API (v2.x)
 		elseif wk.register then
 			wk.register({
 				[M.config.keymaps.mark] = {
 					name = "Buffer Marks",
-					["…"] = "[a-z|A-Z|0-9] to mark buffer",
+					["<any>"] = "[a-zA-Z0-9] to mark buffer",
 				},
 			}, { mode = "n" })
 		end
